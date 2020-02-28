@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Navbar from "./components/layout/Navbar";
+import Home from "./components/pages/Home";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import AuthState from "./context/auth/AuthState";
+import UrgenceState from "./context/urgence/urgenceState";
+
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import PrivateRoute from './components/routing/PrivateRoute'
+import setAuthToken from "./utils/setAuthToken";
+import urgenceOfDetail from "./components/pages/urgenceOfDetail";
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
 }
+const App = () => {
+  return (
+    <AuthState>
+      <UrgenceState>
+        <Router>
+          <Fragment>
+            <Navbar />
+
+            <div className="container">
+              <Switch>
+              <PrivateRoute exact path='/' component={Home} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/detail/:id" component={urgenceOfDetail} />
+              </Switch>
+            </div>
+          </Fragment>
+        </Router>
+      </UrgenceState>
+    </AuthState>
+  );
+};
 
 export default App;

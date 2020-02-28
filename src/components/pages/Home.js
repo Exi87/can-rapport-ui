@@ -10,34 +10,18 @@ const Home = () => {
 
   const urgenceContext = useContext(UrgenceContext);
 
-  const { urgences, filtered, dateUrgence} = urgenceContext;
+  const { urgences, filtered, dateUrgence } = urgenceContext;
 
-  console.log(filtered);
-
-
-
-
-
-
-
-const urgenceEffectuee = arr => {
-
-  var new_array = [];
-  for (let i = 0; i <arr.length; i++) {
-   
-
-    if ((arr[i].hopital) !==" Inconnu") {
-      new_array.push(arr[i]);
-     
+  const urgenceEffectuee = arr => {
+    var new_array = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].hopital !== " Inconnu") {
+        new_array.push(arr[i]);
+      }
     }
-  }
-  return new_array;
-};
+    return new_array;
+  };
 
-
-
-
-  
   useEffect(() => {
     authContext.loadUser();
 
@@ -51,11 +35,11 @@ const urgenceEffectuee = arr => {
       </div>
 
       <div>
-        <h4 className="text-primary">#Urgences:{" "} {urgences.length}</h4>
+        <h4 className="text-primary">#Urgences: {urgences.length}</h4>
 
         <span className="text-primary">
-        #Urgences effectuees:{" "} {urgenceEffectuee(urgences).length}
-       {/* // #AVP:{" "} {countAvp(filtered).length} */}
+          #Urgences effectuees: {urgenceEffectuee(urgences).length}
+          {/* // #AVP:{" "} {countAvp(filtered).length} */}
         </span>
 
         <UrgenceFiltered />
